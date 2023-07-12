@@ -8,7 +8,6 @@ import lombok.ToString;
  * Created on 2023-07-12
  */
 @Data
-@ToString
 public class RpcRequest {
     /**
      * ID of Request Object
@@ -25,7 +24,7 @@ public class RpcRequest {
     /**
      * Parameter type
      */
-    private Class<?>[] parameterTypes;
+    private Class[] parameterTypes;
     /**
      * Participation
      */

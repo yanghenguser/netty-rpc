@@ -28,8 +28,7 @@ import lombok.extern.slf4j.Slf4j;
 public class NettyServer{
     private EventLoopGroup boss = null;
     private EventLoopGroup worker = null;
-    @Autowired
-    private ServerHandler serverHandler;
+    private ServerHandler serverHandler = new ServerHandler();
 
     public void start() {
         boss = new NioEventLoopGroup();
@@ -43,7 +42,7 @@ public class NettyServer{
                     protected void initChannel(SocketChannel ch) throws Exception {
                         ChannelPipeline p = ch.pipeline();
                         p.addLast(new RpcEncoder(RpcRequest.class, new JSONSerializer()));
-                        p.addLast(new RpcDecoder(RpcResponse.class, new JSONSerializer()));
+                        p.addLast(new RpcDecoder(RpcRequest.class, new JSONSerializer()));
                         p.addLast(serverHandler);
                     }
                 });

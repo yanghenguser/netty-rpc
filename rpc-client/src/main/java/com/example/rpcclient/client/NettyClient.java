@@ -5,6 +5,7 @@ import java.util.concurrent.TimeUnit;
 
 import javax.annotation.PreDestroy;
 
+import com.alibaba.fastjson.JSON;
 import com.example.rpcapi.Serializer.impl.JSONSerializer;
 import com.example.rpcapi.module.RpcRequest;
 import com.example.rpcapi.module.RpcResponse;
@@ -97,14 +98,15 @@ public class NettyClient {
      * @param request
      * @return
      */
-    public RpcResponse send(final RpcRequest request) {
-        try {
-            channel.writeAndFlush(request).await();
+    public RpcResponse send(final RpcRequest request) throws InterruptedException {
+        log.info("send  req = {}", JSON.toJSONString(request));
+        channel.writeAndFlush(request);
+        Thread.sleep(3000);
 
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        return clientHandler.getRpcResponse(request.getRequestId());
+        RpcResponse rpcResponse = clientHandler.getRpcResponse(request.getRequestId());
+        log.info("send resp = {}", JSON.toJSONString(rpcResponse));
+
+        return rpcResponse;
     }
     @PreDestroy
     public void close() {

@@ -31,10 +31,13 @@ public class RpcDecoder extends ByteToMessageDecoder {
             log.error("byte less than 4");
             return;
         }
-        byteBuf.markReaderIndex();
+        log.info("byte len = {}", byteBuf.readableBytes());
+        //byteBuf.markReaderIndex();
         int dataLength = byteBuf.readInt();
+        log.info("byte len = {}", byteBuf.readableBytes());
+
         if (byteBuf.readableBytes() < dataLength) {
-            byteBuf.markReaderIndex();
+//            byteBuf.markReaderIndex();
             return;
         }
         byte[] data = new byte[dataLength];

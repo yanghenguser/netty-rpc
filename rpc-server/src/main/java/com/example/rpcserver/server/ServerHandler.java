@@ -30,6 +30,8 @@ public class ServerHandler extends SimpleChannelInboundHandler<RpcRequest> imple
 
     @Override
     protected void channelRead0(ChannelHandlerContext ctx, RpcRequest msg) throws Exception {
+        log.info("Get response : {} ", msg);
+
         RpcResponse response = new RpcResponse();
         response.setRequestId(msg.getRequestId());
         try {

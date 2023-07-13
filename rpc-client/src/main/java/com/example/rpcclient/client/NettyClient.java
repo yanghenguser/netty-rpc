@@ -101,10 +101,8 @@ public class NettyClient {
     public RpcResponse send(final RpcRequest request) throws InterruptedException {
         log.info("send  req = {}", JSON.toJSONString(request));
         channel.writeAndFlush(request);
-        Thread.sleep(3000);
-
         RpcResponse rpcResponse = clientHandler.getRpcResponse(request.getRequestId());
-        log.info("send resp = {}", JSON.toJSONString(rpcResponse));
+        log.info("get resp = {}", JSON.toJSONString(rpcResponse));
 
         return rpcResponse;
     }

@@ -9,7 +9,7 @@ import lombok.ToString;
  */
 @Data
 @ToString
-public class RpcRequest {
+public class RpcRequest<T> {
     /**
      * ID of Request Object
      */
@@ -22,6 +22,9 @@ public class RpcRequest {
      * Method name
      */
     private String methodName;
+
+
+
     /**
      * Parameter type
      */

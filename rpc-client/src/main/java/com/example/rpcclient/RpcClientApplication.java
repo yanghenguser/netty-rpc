@@ -15,6 +15,6 @@ public class RpcClientApplication {
     public static void main(String[] args) throws Exception {
         HelloService helloService = ProxyFactory.create(HelloService.class);
         log.info("Response : {}", helloService.hello("1234"));
-        SpringApplication.run(RpcClientApplication.class, args);
+
     }
 }

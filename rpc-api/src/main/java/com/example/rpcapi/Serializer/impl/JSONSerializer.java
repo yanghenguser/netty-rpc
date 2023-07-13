@@ -2,7 +2,7 @@ package com.example.rpcapi.Serializer.impl;
 
 import java.io.IOException;
 
-import com.alibaba.fastjson2.JSON;
+import com.alibaba.fastjson.JSON;
 import com.example.rpcapi.Serializer.Serializer;
 import com.example.rpcapi.module.RpcRequest;
 
@@ -27,9 +27,12 @@ public class JSONSerializer implements Serializer {
         rpcRequest.setParameters(new Object[2]);
         rpcRequest.setParameterTypes(new Class[]{RpcRequest.class, RpcRequest.class});
         JSONSerializer jsonSerializer = new JSONSerializer();
+
         byte[] serialize = jsonSerializer.serialize(rpcRequest);
         RpcRequest deserialize = jsonSerializer.deserialize(RpcRequest.class, serialize);
         System.out.println(JSON.toJSONString(deserialize));
 
     }
+
+
 }

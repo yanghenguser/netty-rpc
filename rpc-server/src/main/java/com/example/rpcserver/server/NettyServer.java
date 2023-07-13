@@ -19,16 +19,20 @@ import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Component;
 
 /**
  * @author yangheng <yangheng@kuaishou.com>
  * Created on 2023-07-12
  */
+
+@Component
 @Slf4j
 public class NettyServer{
     private EventLoopGroup boss = null;
     private EventLoopGroup worker = null;
-    private ServerHandler serverHandler = new ServerHandler();
+    @Autowired
+    private ServerHandler serverHandler;
 
     public void start() {
         boss = new NioEventLoopGroup();
@@ -41,7 +45,7 @@ public class NettyServer{
                     @Override
                     protected void initChannel(SocketChannel ch) throws Exception {
                         ChannelPipeline p = ch.pipeline();
-                        p.addLast(new RpcEncoder(RpcRequest.class, new JSONSerializer()));
+                        p.addLast(new RpcEncoder(RpcResponse.class, new JSONSerializer()));
                         p.addLast(new RpcDecoder(RpcRequest.class, new JSONSerializer()));
                         p.addLast(serverHandler);
                     }

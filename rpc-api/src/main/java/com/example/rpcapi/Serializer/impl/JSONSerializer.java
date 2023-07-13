@@ -25,11 +25,24 @@ public class JSONSerializer implements Serializer {
         RpcRequest rpcRequest = new RpcRequest();
         rpcRequest.setRequestId("111");
         rpcRequest.setParameters(new Object[2]);
-        rpcRequest.setParameterTypes(new Class[]{RpcRequest.class, RpcRequest.class});
+        rpcRequest.setParameterTypes(new Class[]{String.class});
+
+
+     /*   String ser = JSON.toJSONString(rpcRequest);
+
+        RpcRequest request = JSON.parseObject(ser, RpcRequest.class);
+
+        System.out.println(JSON.toJSONString(request));*/
+
+
         JSONSerializer jsonSerializer = new JSONSerializer();
 
         byte[] serialize = jsonSerializer.serialize(rpcRequest);
+        //  RpcRequest deserialize = JSON.parseObject(serialize, RpcRequest.class);
+
         RpcRequest deserialize = jsonSerializer.deserialize(RpcRequest.class, serialize);
+
+
         System.out.println(JSON.toJSONString(deserialize));
 
     }
